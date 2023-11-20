@@ -3,12 +3,12 @@ import { NavBar } from "./components/nav/NavBar"
 import { Display1 } from "./components/display1/Display1"
 import { Display2 } from "./components/display2/Display2"
 import { SearchHistory } from "./components/searchHistory/SearchHistory"
-import { WordProvider } from "./contexts/historyContext"
+import { HistoryProvider } from "./contexts/historyContext"
   
 function App() {
 
   return (
-    <WordProvider>
+    <HistoryProvider>
       <BrowserRouter>
         <NavBar />
         <main>
@@ -19,7 +19,7 @@ function App() {
           </Routes>
         </main>
       </BrowserRouter>
-    </WordProvider>
+    </HistoryProvider>
   )
 }
 

@@ -8,5 +8,7 @@ export type TMeaning = {
 export type TWord = {
     word: string;
     phonetic: string;
-    meanings: TMeaning[];
+    // changes for temp search functionality
+    meanings?: TMeaning[];
+    definition?: string;
 }

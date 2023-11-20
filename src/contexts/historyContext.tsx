@@ -1,24 +1,25 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { TWord } from "../types/types"
 
-export type WordContextProps = {
+export type HistoryContextProps = {
     wordCollection: TWord[];
     addWord: (word: TWord) => void;
     clearHistory: () => void;
 }
 
-export const WordContext = createContext<WordContextProps>({
+export const HistoryContext = createContext<HistoryContextProps>({
     wordCollection: [],
     addWord: () => {},
     clearHistory: () => {}
 })
 
-type WordProviderProps = {
+type HistoryProviderProps = {
     children: any;
 }
 
-export const WordProvider = ({ children }: WordProviderProps ) => {
+export const HistoryProvider = ({ children }: HistoryProviderProps ) => {
 
+    // TODO - add custom hook to save/check local storage
     const [wordCollection, setWordCollection] = useState<TWord[]>([]);
 
     const addWord = (word: TWord) => {
@@ -30,8 +31,10 @@ export const WordProvider = ({ children }: WordProviderProps ) => {
     }
 
     return (
-        <WordContext.Provider value={{ wordCollection, addWord, clearHistory }} >
+        <HistoryContext.Provider value={{ wordCollection, addWord, clearHistory }} >
             {children}
-        </WordContext.Provider>
+        </HistoryContext.Provider>
     )
 }
+
+export const useHistory = () => useContext(HistoryContext)

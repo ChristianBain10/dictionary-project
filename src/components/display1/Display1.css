@@ -1,0 +1,41 @@
+.search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .search-title {
+        font-size: xx-large;
+        margin-top: 20px;
+        margin-bottom: 40px;
+    }
+
+    .search-form {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: 100%;
+
+        #search-label {
+            width: 30%;
+            height: 35px;
+        }
+
+        .search-input {
+            height: 100%;
+            width: 90%;
+            border-radius: 20px;
+            padding: 0px 10px;
+            font-size: large;
+        }
+    }
+
+    #submit-search-btn {
+        margin-top: 10px;
+        border-radius: 5px;
+        background-color: blue;
+        color: white;
+        border: none;
+        padding: 5px 20px;
+    }
+
+}
