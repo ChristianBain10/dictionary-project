@@ -1,0 +1,36 @@
+.nav-container {
+
+    .color-row {
+        background-color: black;
+        width: 100%;
+        height: 15vh;
+    }
+
+    .text-row {
+
+        display: flex;
+        align-items: center;
+
+        .title {
+            width: 50%;
+        }
+
+        .tabs-section {
+            display: flex;
+            justify-content: space-evenly;
+
+            .tab-container {
+                margin: 10px;
+            }
+        }
+
+        .icons-section {
+            margin-left: auto;
+            padding-right: 10px;
+    
+            .icon-container {
+                margin: 8px;
+            }
+        }
+    }
+}
