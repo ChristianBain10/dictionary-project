@@ -1,7 +1,8 @@
 import { useState } from "react"
 import { useHistory } from "../../contexts/historyContext";
 import './Display1.css';
-import { TWord } from "../../types/types";
+import { TMeaning, TWord } from "../../types/types";
+import { ResultCard1 } from "./resultCard1/ResultCard1";
 
 const DICTIONARY_URL = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
 
@@ -20,18 +21,33 @@ export const Display1 = () => {
             .then(res => res.json())
             .then(res => {
                 const result = res[0];
-                // TODO add a transform method to abstract the data from the request
-                let word: TWord = {
-                    word: result.word,
-                    phonetic: result.phonetic,
-                    definition: result.meanings[0].definitions[0].definition
-                };
+                const word = transform(result);
                 setResults(word);
                 addWord(word);
             })
             .catch(err => console.error(err))
+    }
 
-        console.log('finished request');
+    const transform = (data: any): TWord => {
+        // observable for piping data?
+        let meaningsList: TMeaning[] = [];
+        const rawMeanings = data.meanings;
+        rawMeanings.forEach((rawMeaning: any) => {
+            const definition: string = rawMeaning?.definitions[0].definition;
+            const syns = rawMeaning.synonyms.length > 3 ? rawMeaning.synonyms.slice(0, 3) : rawMeaning.synonyms;
+            const meaning: TMeaning = {
+                partOfSpeech: rawMeaning.partOfSpeech,
+                definition: definition,
+                synonyms: syns
+            }
+            meaningsList.push(meaning);
+        })
+
+        return {
+            word: data.word,
+            phonetic: data.phonetic,
+            meanings: meaningsList
+        }
     }
 
     return (
@@ -44,17 +60,19 @@ export const Display1 = () => {
             </form>
             <button id='submit-search-btn' onClick={() => handleSearch()}>Search</button>
             {results &&
-                <>
+                <div className="results-section">
                     <div>
-                        {results.word}
+                        <h3 style={{ fontSize: '22pt' }}>{results.word}</h3>
                     </div>
                     <div>
                         {results.phonetic}
                     </div>
-                    <div>
-                        {results.definition}
-                    </div>
-                </>
+                    {results.meanings.map((meaning: TMeaning) => {
+                        return(
+                            <ResultCard1 key={meaning.partOfSpeech} meaning={meaning} />
+                        )
+                    })}
+                </div>
             }
         </article>
     )
