@@ -23,7 +23,8 @@ export const HistoryProvider = ({ children }: HistoryProviderProps ) => {
     const [wordCollection, setWordCollection] = useState<TWord[]>([]);
 
     const addWord = (word: TWord) => {
-        setWordCollection([...wordCollection, word]);
+        let tempCollection = wordCollection.filter(item => item.word !== word.word);
+        setWordCollection([...tempCollection, word]);
     }
 
     const clearHistory = () => {
